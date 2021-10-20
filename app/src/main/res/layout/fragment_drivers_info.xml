@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:labelFor="@id/spSelectYear"
+        android:labelFor="@id/spSelectDriver"
         android:text="@string/tvSelectYearLabel" />
 
     <Spinner
-        android:id="@+id/spSelectYear"
+        android:id="@+id/spSelectDriver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

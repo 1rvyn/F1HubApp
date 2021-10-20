@@ -12,7 +12,7 @@
     <string name="btnGetDriverData">Get Driver Data</string>
 
     <!-- constructors info fragment -->
-    <string name="tvSelectConstructorLabel">Please Select the constructor from the following options</string>
+    <string name="tvSelectConstructorLabel">Please select the constructor from the following options</string>
     <string name="btnGetConstructorData">Get Constructor Data</string>
 
 
