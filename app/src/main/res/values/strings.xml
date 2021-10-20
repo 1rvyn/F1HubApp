@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">F1hub</string>
+    <string name="btnGetDriversInfo">Get Drivers data</string>
+    <string name="btnGetConstructorsInfo">Get Constructors data</string>
+    <string name="tvEnterFavoriteDriver">Enter your favorite driver</string>
+    <string name="etEnterFavoriteDriver">Lewis Hamilton</string>
+    <string name="btnLatestF1News">Show the latest F1 News</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!--drivers info fragment -->
+    <string name="tvSelectYearLabel">Please select the year from the following options.</string>
+    <string name="btnGetDriverData">Get Year Data</string>
+
+</resources>
