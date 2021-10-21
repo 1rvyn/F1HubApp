@@ -72,6 +72,7 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
         Button btnShowNextCircut = view.findViewById(R.id.btnShowNextCircut);
         btnShowNextCircut.setOnClickListener(this);
 
+
         return view;
     }
 

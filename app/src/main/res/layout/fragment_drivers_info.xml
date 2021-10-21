@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:labelFor="@id/spSelectDriver"
-        android:text="@string/tvSelectDriverLabel" />
+        android:text="@string/tvSelectYearLabel" />
 
     <Spinner
         android:id="@+id/spSelectDriver"

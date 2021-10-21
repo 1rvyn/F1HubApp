@@ -3,17 +3,19 @@ package com.example.f1hub;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ConstructorsLayoutFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ConstructorsLayoutFragment extends Fragment {
+public class ConstructorsLayoutFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +61,18 @@ public class ConstructorsLayoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_constructors_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_constructors_layout, container, false);
+
+        Button btnGetConstructorData = view.findViewById(R.id.btnGetConstructorData);
+        btnGetConstructorData.setOnClickListener(this);
+
+        return view;
+    }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnGetConstructorData){
+            Navigation.findNavController(v).navigate(R.id.action_constructorsLayoutFragment_to_dataFragment);
+        }
     }
 }
+
