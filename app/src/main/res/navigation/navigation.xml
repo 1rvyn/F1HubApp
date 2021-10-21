@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/locationSelectionFragment">
+
+    <fragment
+        android:id="@+id/locationSelectionFragment"
+        android:name="com.example.f1hub.LocationSelectionFragment"
+        android:label="fragment_location_selection"
+        tools:layout="@layout/fragment_location_selection" >
+        <action
+            android:id="@+id/action_locationSelectionFragment_to_driversInfoFragment"
+            app:destination="@id/driversInfoFragment" />
+        <action
+            android:id="@+id/action_locationSelectionFragment_to_constructorsLayoutFragment2"
+            app:destination="@id/constructorsLayoutFragment" />
+        <action
+            android:id="@+id/action_locationSelectionFragment_to_raceLocationFragment"
+            app:destination="@id/raceLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driversInfoFragment"
+        android:name="com.example.f1hub.DriversInfoFragment"
+        android:label="fragment_drivers_info"
+        tools:layout="@layout/fragment_drivers_info" />
+    <fragment
+        android:id="@+id/constructorsLayoutFragment"
+        android:name="com.example.f1hub.ConstructorsLayoutFragment"
+        android:label="fragment_constructors_layout"
+        tools:layout="@layout/fragment_constructors_layout" />
+    <fragment
+        android:id="@+id/raceLocationFragment"
+        android:name="com.example.f1hub.RaceLocationFragment"
+        android:label="fragment_race_location"
+        tools:layout="@layout/fragment_race_location" >
+        <action
+            android:id="@+id/action_raceLocationFragment_to_locationSelectionFragment"
+            app:destination="@id/locationSelectionFragment" />
+    </fragment>
+</navigation>

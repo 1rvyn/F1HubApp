@@ -2,10 +2,9 @@
     <string name="app_name">F1hub</string>
     <string name="btnGetDriversInfo">Get Drivers data</string>
     <string name="btnGetConstructorsInfo">Get Constructors data</string>
-    <string name="tvEnterFavoriteDriver">Enter your favorite driver</string>
-    <string name="etEnterFavoriteDriver">Lewis Hamilton</string>
-    <string name="btnLatestF1News">Show the latest F1 News</string>
-    <string name="btnShowFavoriteDriverData">Show your favorite driver's data</string>
+    <string name="btnShowNextCircut">Show where the next race is</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- drivers info fragment -->
@@ -16,11 +15,15 @@
     <string name="tvSelectConstructorLabel">Please select the constructor from the following options</string>
     <string name="btnGetConstructorData">Get Constructor Data</string>
 
-    <!-- drivers list -->
+    <!-- drivers list fragment -->
     <string name="tvDriversNames">Drivers Name</string>
     <string name="tvDriverPosition">Position</string>
     <string name="tvDriverPoints">Points</string>
     <string name="tvDriverPodiums">Podiums</string>
+    <!-- race location fragment - whole page will be created in outcome 2 as it will be a api map -->
+    <string name="tvRaceLocationMap">This is how far you are from the race</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
