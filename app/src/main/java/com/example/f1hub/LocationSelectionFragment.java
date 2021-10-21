@@ -2,9 +2,12 @@ package com.example.f1hub;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -12,7 +15,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  *
  */
-public class LocationSelectionFragment extends Fragment {
+public class LocationSelectionFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,6 +61,27 @@ public class LocationSelectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_location_selection, container, false);
+        View view = inflater.inflate(R.layout.fragment_location_selection, container, false);
+
+        Button btnDriversInfo = view.findViewById(R.id.btnDriversInfo);
+        btnDriversInfo.setOnClickListener(this);
+
+        Button btnConstructorsInfo = view.findViewById(R.id.btnConstructorsInfo);
+        btnConstructorsInfo.setOnClickListener(this);
+
+        Button btnShowNextCircut = view.findViewById(R.id.btnShowNextCircut);
+        btnShowNextCircut.setOnClickListener(this);
+
+        return view;
+    }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnDriversInfo) {
+            Navigation.findNavController(v).navigate(R.id.action_locationSelectionFragment_to_driversInfoFragment);
+        } else if (v.getId() == R.id.btnConstructorsInfo) {
+            Navigation.findNavController(v).navigate(R.id.action_locationSelectionFragment_to_constructorsLayoutFragment2);
+        } else if (v.getId() == R.id.btnShowNextCircut) {
+            Navigation.findNavController(v).navigate(R.id.action_locationSelectionFragment_to_raceLocationFragment);
+        }
     }
 }

@@ -12,24 +12,37 @@
         tools:layout="@layout/fragment_location_selection" >
         <action
             android:id="@+id/action_locationSelectionFragment_to_driversInfoFragment"
-            app:destination="@id/driversInfoFragment" />
+            app:destination="@id/driversInfoFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_locationSelectionFragment_to_constructorsLayoutFragment2"
-            app:destination="@id/constructorsLayoutFragment" />
+            app:destination="@id/constructorsLayoutFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
         <action
             android:id="@+id/action_locationSelectionFragment_to_raceLocationFragment"
-            app:destination="@id/raceLocationFragment" />
+            app:destination="@id/raceLocationFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/driversInfoFragment"
         android:name="com.example.f1hub.DriversInfoFragment"
         android:label="fragment_drivers_info"
-        tools:layout="@layout/fragment_drivers_info" />
+        tools:layout="@layout/fragment_drivers_info" >
+        <action
+            android:id="@+id/action_driversInfoFragment_to_dataFragment"
+            app:destination="@id/dataFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
     <fragment
         android:id="@+id/constructorsLayoutFragment"
         android:name="com.example.f1hub.ConstructorsLayoutFragment"
         android:label="fragment_constructors_layout"
-        tools:layout="@layout/fragment_constructors_layout" />
+        tools:layout="@layout/fragment_constructors_layout" >
+        <action
+            android:id="@+id/action_constructorsLayoutFragment_to_dataFragment"
+            app:destination="@id/dataFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
     <fragment
         android:id="@+id/raceLocationFragment"
         android:name="com.example.f1hub.RaceLocationFragment"
@@ -37,6 +50,17 @@
         tools:layout="@layout/fragment_race_location" >
         <action
             android:id="@+id/action_raceLocationFragment_to_locationSelectionFragment"
-            app:destination="@id/locationSelectionFragment" />
+            app:destination="@id/locationSelectionFragment"
+            app:enterAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/dataFragment"
+        android:name="com.example.f1hub.DataFragment"
+        android:label="fragment_data"
+        tools:layout="@layout/fragment_data" >
+        <action
+            android:id="@+id/action_dataFragment_to_locationSelectionFragment"
+            app:destination="@id/locationSelectionFragment"
+            app:enterAnim="@anim/nav_default_exit_anim" />
     </fragment>
 </navigation>
