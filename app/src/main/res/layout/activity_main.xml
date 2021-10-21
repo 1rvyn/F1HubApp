@@ -35,15 +35,6 @@
         app:layout_constraintStart_toStartOf="@+id/btnDriversInfo"
         app:layout_constraintTop_toBottomOf="@+id/btnDriversInfo" />
 
-    <TextView
-        android:id="@+id/tvFavoriteDriverLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/tvEnterFavoriteDriver"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnConstructorsInfo" />
-
     <EditText
         android:id="@+id/etEnterFavoritedDriver"
         android:layout_width="0dp"
@@ -55,16 +46,33 @@
         android:minHeight="48dp"
         android:text="@string/etEnterFavoriteDriver"
         app:layout_constraintStart_toEndOf="@+id/tvFavoriteDriverLabel"
-        app:layout_constraintTop_toBottomOf="@+id/btnConstructorsInfo"
+        app:layout_constraintTop_toTopOf="@+id/tvFavoriteDriverLabel"
         tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/tvFavoriteDriverLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvEnterFavoriteDriver"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowNews" />
 
     <Button
         android:id="@+id/btnShowNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="@string/btnLatestF1News"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFavoriteDriverLabel" />
+        app:layout_constraintEnd_toEndOf="@+id/btnConstructorsInfo"
+        app:layout_constraintStart_toStartOf="@+id/btnConstructorsInfo"
+        app:layout_constraintTop_toBottomOf="@+id/btnConstructorsInfo" />
+
+    <Button
+        android:id="@+id/btnFavDriverData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnShowFavoriteDriverData"
+        app:layout_constraintEnd_toEndOf="@+id/btnShowNews"
+        app:layout_constraintStart_toStartOf="@+id/btnShowNews"
+        app:layout_constraintTop_toBottomOf="@+id/etEnterFavoritedDriver" />
 </androidx.constraintlayout.widget.ConstraintLayout>
