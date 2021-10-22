@@ -7,13 +7,14 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
         <entry key="app/src/main/res/layout/data_display_list_item.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/driver_data_list_item.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/fragment_constructor_data.xml" value="0.2286158631415241" />
         <entry key="app/src/main/res/layout/fragment_constructors_layout.xml" value="0.29483695652173914" />
-        <entry key="app/src/main/res/layout/fragment_data.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/fragment_data.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/layout/fragment_data_display.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/fragment_drivers_info.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_drivers_info.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_latest_news.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_location_selection.xml" value="0.3619791666666667" />
-        <entry key="app/src/main/res/layout/fragment_race_location.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/fragment_race_location.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.37604166666666666" />
       </map>
     </option>

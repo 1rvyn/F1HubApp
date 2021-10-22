@@ -39,9 +39,8 @@
         android:label="fragment_constructors_layout"
         tools:layout="@layout/fragment_constructors_layout">
         <action
-            android:id="@+id/action_constructorsLayoutFragment_to_dataFragment"
-            app:destination="@id/dataFragment"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            android:id="@+id/action_constructorsLayoutFragment_to_constructorData2"
+            app:destination="@id/constructorData2" />
     </fragment>
     <fragment
         android:id="@+id/raceLocationFragment"
@@ -55,6 +54,15 @@
         tools:layout="@layout/fragment_data" >
         <action
             android:id="@+id/action_dataFragment_to_locationSelectionFragment"
+            app:destination="@id/locationSelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/constructorData2"
+        android:name="com.example.f1hub.ConstructorData"
+        android:label="fragment_constructor_data"
+        tools:layout="@layout/fragment_constructor_data" >
+        <action
+            android:id="@+id/action_constructorData2_to_locationSelectionFragment"
             app:destination="@id/locationSelectionFragment" />
     </fragment>
 </navigation>
