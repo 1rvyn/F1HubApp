@@ -19,7 +19,7 @@
         tools:text="Constructor data for, Mercedes" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rv_DriverInformation"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -36,6 +36,6 @@
         android:layout_height="wrap_content"
         android:text="@string/btnHomePage2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView" />
+        app:layout_constraintEnd_toEndOf="@+id/rv_DriverInformation"
+        app:layout_constraintStart_toStartOf="@+id/rv_DriverInformation" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.39114583333333336" />
+        <entry key="..\:/Users/johns/Desktop/F1hub/app/src/main/res/layout/activity_main.xml" value="0.34556159420289856" />
+        <entry key="..\:/Users/johns/Desktop/F1hub/app/src/main/res/layout/data_display_list_item.xml" value="0.34556159420289856" />
+        <entry key="..\:/Users/johns/Desktop/F1hub/app/src/main/res/layout/fragment_constructor_data.xml" value="0.348731884057971" />
+        <entry key="..\:/Users/johns/Desktop/F1hub/app/src/main/res/layout/fragment_constructors_layout.xml" value="0.34556159420289856" />
+        <entry key="..\:/Users/johns/Desktop/F1hub/app/src/main/res/layout/fragment_data.xml" value="0.34556159420289856" />
+        <entry key="..\:/Users/johns/Desktop/F1hub/app/src/main/res/layout/fragment_drivers_info.xml" value="0.25" />
+        <entry key="..\:/Users/johns/Desktop/F1hub/app/src/main/res/layout/fragment_location_selection.xml" value="0.34556159420289856" />
+        <entry key="..\:/Users/johns/Desktop/F1hub/app/src/main/res/layout/fragment_race_location.xml" value="0.34556159420289856" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
         <entry key="app/src/main/res/layout/data_display_list_item.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/driver_data_list_item.xml" value="0.37604166666666666" />

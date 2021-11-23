@@ -13,13 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/tvShowDriverDataFor"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Driver data collected for, Lewis Hamilton" />
+        tools:text="Driver data collected for year :"
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rv_DriverInformation"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -36,6 +36,16 @@
         android:layout_height="wrap_content"
         android:text="@string/btnHomePage"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView" />
+        app:layout_constraintEnd_toEndOf="@+id/rv_DriverInformation"
+        app:layout_constraintStart_toStartOf="@+id/rv_DriverInformation" />
+
+    <TextView
+        android:id="@+id/tvYearValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/tvYearDisplay"
+        app:layout_constraintStart_toEndOf="@+id/DataLabel"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

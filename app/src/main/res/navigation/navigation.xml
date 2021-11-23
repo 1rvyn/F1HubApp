@@ -55,6 +55,10 @@
         <action
             android:id="@+id/action_dataFragment_to_locationSelectionFragment"
             app:destination="@id/locationSelectionFragment" />
+        <argument
+            android:name="dataYear"
+            app:argType="integer"
+            android:defaultValue="2020" />
     </fragment>
     <fragment
         android:id="@+id/constructorData2"

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,14 +18,10 @@ import android.widget.Button;
  */
 public class DriversInfoFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public static final String ARG_DATA_YEAR = "dataYear";
+    // member variables for setting up display
+    private int mDataYear;
 
     public DriversInfoFragment() {
         // Required empty public constructor
@@ -33,17 +30,14 @@ public class DriversInfoFragment extends Fragment implements View.OnClickListene
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param dataYear THE YEAR THE DATA HAS TO BE SHOWN FOR
      * @return A new instance of fragment DriversInfoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DriversInfoFragment newInstance(String param1, String param2) {
+    public static DriversInfoFragment newInstance(int dataYear) {
         DriversInfoFragment fragment = new DriversInfoFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_DATA_YEAR, dataYear);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +46,8 @@ public class DriversInfoFragment extends Fragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mDataYear = getArguments().getInt(ARG_DATA_YEAR);
+
         }
     }
 
@@ -70,8 +64,17 @@ public class DriversInfoFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        // Get the year entered
+        EditText etEnterYear = getView().findViewById(R.id.etEnterYear);
+        int yearOfData = Integer.parseInt(etEnterYear.getText().toString());
+
+        // create bundle
+        Bundle args = new Bundle();
+        args.putInt("dataYear", yearOfData);
+
          if (v.getId() == R.id.btnGetDriverData){
-            Navigation.findNavController(v).navigate(R.id.action_driversInfoFragment_to_dataFragment);
+            Navigation.findNavController(v).navigate(
+                    R.id.action_driversInfoFragment_to_dataFragment, args);
         }
     }
 }

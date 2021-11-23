@@ -28,10 +28,15 @@
 
     <string name="btnHomePage">Back to Home</string>
     <string name="btnHomePage2">Back to Home</string>
-    <string name="tvShowDriverDataFor">Driver data collected for</string>
+    <string name="tvShowDriverDataFor">Driver data collected for the year</string>
     <string name="tvShowConstructorDataFor">Constructor data for</string>
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tvYearDisplay">2020</string>
+
+    <integer name="etEnterYear">2020</integer>
+
+    <string name="data_frag_download_error">Error downloading the driver data</string>
+
 
 
 </resources>
