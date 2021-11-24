@@ -120,10 +120,10 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                         // will essentially be displaying the data in the DriverInfo list
                         try {
                             JSONObject rootObject = new JSONObject(response);
-                            // JSONArray standingsListsArray = rootObject.getJSONArray("StandingsLists");
                             JSONObject MRData = rootObject.getJSONObject("MRData");
                             JSONObject standingsObj = MRData.getJSONObject("StandingsTable");
                             JSONArray standingsArray = standingsObj.getJSONArray("StandingsLists");
+                            driverInfo.clear();
                             for (int i = 0, j = standingsArray.length(); i < j; i++){
                                 JSONObject standingsArrayObj = standingsArray.getJSONObject(i);
                                 JSONArray driverStandings = standingsArrayObj.getJSONArray("DriverStandings");
@@ -135,14 +135,19 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                                     JSONObject driverObj = dStandingsObj.getJSONObject("Driver");
                                     String driverName = driverObj.getString("driverId");
                                     // test Log.d(TAG2, "drivers name are as follows ;" + driverName);
-
+                                    DriverInfo di = new DriverInfo();
+                                    di.setDriverName(driverName);
+                                    di.setDriverPoints(points);
+                                    di.setDriverWins(wins);
+                                    di.setDriverPos(position);
+                                    driverInfo.add(di);
 
                                 }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
+                        adapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
                     @Override
