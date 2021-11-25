@@ -46,7 +46,16 @@
         android:id="@+id/raceLocationFragment"
         android:name="com.example.f1hub.RaceLocationFragment"
         android:label="fragment_race_location"
-        tools:layout="@layout/fragment_race_location" />
+        tools:layout="@layout/fragment_race_location" >
+        <argument
+            android:name="dataLat"
+            app:argType="string"
+            android:defaultValue="60.0343" />
+        <argument
+            android:name="dataLong"
+            app:argType="string"
+            android:defaultValue="-20.0345" />
+    </fragment>
     <fragment
         android:id="@+id/dataFragment"
         android:name="com.example.f1hub.DataFragment"

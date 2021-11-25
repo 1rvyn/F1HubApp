@@ -47,7 +47,6 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     private int mDataYear;
 
     private static final String TAG = "Year_DATA_HERE";
-    private static final String TAG2 = "DataListArray";
 
     public DataFragment() {
         // Required empty public constructor
