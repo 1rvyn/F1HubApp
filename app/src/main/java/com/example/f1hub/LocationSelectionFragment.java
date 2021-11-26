@@ -3,7 +3,9 @@ package com.example.f1hub;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.location.LocationRequest;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -30,6 +32,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +48,13 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
     private Boolean mFineLocationGranted = null;
     private FusedLocationProviderClient mFusedLocationClient;
 
+    // member variables for setting up screen
+    public static final String ARG_LOCATION1 = "dataLat";
+    public static final String ARG_LOCATION2 = "dataLong";
+
+    private String mDataLat;
+    private String mDataLong;
+
     public LocationSelectionFragment() {
         // Required empty public constructor
     }
@@ -57,19 +67,22 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
      * @return A new instance of fragment LocationSelectionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LocationSelectionFragment newInstance() {
+    public static LocationSelectionFragment newInstance(String dataLat, String dataLong) {
         LocationSelectionFragment fragment = new LocationSelectionFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_LOCATION1, dataLat);
+        args.putString(ARG_LOCATION2, dataLong);
         fragment.setArguments(args);
         return fragment;
     }
-
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            mDataLat = getArguments().getString(ARG_LOCATION1);
+            mDataLong = getArguments().getString(ARG_LOCATION2);
 
         }
         registerForLocationPermissionCheck();
@@ -86,8 +99,6 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
         mLocationPermissionRequest =
                 registerForActivityResult(new ActivityResultContracts
                         .RequestMultiplePermissions(), result -> {
-
-
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                         mFineLocationGranted = result.getOrDefault(
                                 Manifest.permission.ACCESS_FINE_LOCATION, false);
@@ -140,16 +151,24 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
     private void checkIfLocationPermissionGranted() {
         if (mFineLocationGranted != null && mFineLocationGranted) {
             // Precise location access granted.
-            Log.d(TAG, "Fine location granted");
+            Log.d(TAG, "ACCURATE location granted");
         } else if (mCoarseLocationGranted != null && mCoarseLocationGranted) {
             // Only approximate location access granted.
-            Log.d(TAG, "Inaccurate location granted");
+            Log.d(TAG, "inaccurate location granted");
         } else {
-            // No location access granted.
-            Log.d(TAG, "not location granted");
             requestLocationPermissions();
+            Log.d(TAG, "re-requesting the permission");
         }
     }
+
+    private void requestLocationPermissions(){
+        mLocationPermissionRequest.launch(new String[] {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        });
+
+    }
+
 
     private void getTheCurrentLocation() {
             if (ActivityCompat.checkSelfPermission(getContext(),
@@ -163,7 +182,6 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
         GoogleApiAvailability gaa = new GoogleApiAvailability();
         if (ConnectionResult.SUCCESS == gaa.isGooglePlayServicesAvailable(getContext())) {
             // use google play services
-            //
             Executor executor = Executors.newSingleThreadExecutor();
             mFusedLocationClient.getCurrentLocation(LocationRequest.QUALITY_HIGH_ACCURACY,null)
                     .addOnSuccessListener(executor, new OnSuccessListener<Location>() {
@@ -173,44 +191,54 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
                             if (location != null) {
                                 // Logic to handle location object
                                 Log.d(TAG, "Google play location service used" + location.getLatitude() + "," + location.getLongitude());
+                                switchToRaceMap(String.valueOf(location.getLatitude()),String.valueOf(location.getLongitude()));
                                 //switchToRaceMap(location.getLatitude(), location.getLongitude());
                             }
                             else{
-                                Log.d(TAG, "No location was returned");
+
+                                Log.d(TAG,"Play location didnt return a location");
                             }
                         }
                     });
         }
         else{
             // do it using location manager
-            Log.d(TAG, "No location services on this device");
+            Log.d(TAG, "No location services on the device");
+            LocationManager locationManager = (LocationManager)getActivity().getApplicationContext().getSystemService(getContext().LOCATION_SERVICE);
+            // check if the GPS Provider is available
+            boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            if (gpsEnabled){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    locationManager.getCurrentLocation(LocationManager.GPS_PROVIDER, null,
+                            Executors.newSingleThreadExecutor(),
+                            new Consumer<Location>() {
+                                @Override
+                                public void accept(Location location) {
+                                    if (location != null) {
+                                        // Logic to handle location object
+                                        Log.d(TAG, "LocationManager Location " + location.getLatitude() + ", " + location.getLongitude());
+                                        switchToRaceMap(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
+                                    } else {
+                                        Log.d(TAG, "LocationManager did not return a GPS location ");
+                                    }
+                                }
+                            });
+                }
+            } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+                // similar code to above, but using the network provider
+            }
         }
-
-
     }
-
-    private void requestLocationPermissions(){
-        mLocationPermissionRequest.launch(new String[] {
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-        });
-
-    }
-
-
-    /**
-     * Launch the race location fragment to create the trip from current location to next race
-     * @param latitude
-     * @param longitude
-     */
-    private void switchToRaceMap (double latitude, double longitude){
+    // function to switch to the map and take the user location in args
+    // i will probably change this to make it just launch an intent of google maps
+    private void switchToRaceMap (String currentLat, String currentLong){
         Handler handle = new Handler(Looper.getMainLooper());
         handle.post(new Runnable() {
             @Override
             public void run() {
                 Bundle args = new Bundle();
-                args.putString("dataLat", String.valueOf(latitude));
-                args.putString("dataLong", String.valueOf(longitude));
+                args.putString("dataLat", currentLat);
+                args.putString("dataLong", currentLong);
                 Navigation.findNavController(getView()).navigate(R.id.action_locationSelectionFragment_to_raceLocationFragment, args);
             }
         });

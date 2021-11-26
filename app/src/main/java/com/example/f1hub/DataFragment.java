@@ -99,6 +99,7 @@ public class DataFragment extends Fragment implements View.OnClickListener {
         // make the HTTP get request
 
         // build URI
+        // create util & parser in seperate class
         Uri uri = Uri.parse("https://ergast.com/api/f1/");
         Uri.Builder uriBuilder = uri.buildUpon();
         uriBuilder.appendPath(String.valueOf(mDataYear));

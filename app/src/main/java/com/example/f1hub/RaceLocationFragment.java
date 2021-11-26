@@ -3,23 +3,26 @@ package com.example.f1hub;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RaceLocationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RaceLocationFragment extends Fragment {
+public class RaceLocationFragment extends Fragment implements View.OnClickListener{
 
+    private static final String ARG_LOCATION1 = "dataLat";
+    private static final String ARG_LOCATION2 = "dataLong";
+    private String TAG = "checking the args location";
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
+    // member vars
     private String mDataLat;
     private String mDataLong;
 
@@ -31,16 +34,15 @@ public class RaceLocationFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param dataLong The longitude of the current user
+     * @param dataLat The latitude of the current user
      * @return A new instance of fragment RaceLocationFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static RaceLocationFragment newInstance(String param1, String param2) {
+    public static RaceLocationFragment newInstance(String dataLat, String dataLong) {
         RaceLocationFragment fragment = new RaceLocationFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_LOCATION1, dataLat);
+        args.putString(ARG_LOCATION2, dataLong);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,8 +51,8 @@ public class RaceLocationFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mDataLat = getArguments().getString(ARG_LOCATION1);
+            mDataLong = getArguments().getString(ARG_LOCATION2);
         }
     }
 
@@ -58,6 +60,21 @@ public class RaceLocationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_race_location, container, false);
+        View view = inflater.inflate(R.layout.fragment_race_location, container, false);
+
+        Button btnGetGPSLocation = view.findViewById(R.id.btnGetGPSLocation);
+        btnGetGPSLocation.setOnClickListener(this);
+
+
+        return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnGetGPSLocation){
+
+            // do what is needed to get the next race location and then create a trip through a map
+            // even if its through an intent or through a mapview
+        }
     }
 }
