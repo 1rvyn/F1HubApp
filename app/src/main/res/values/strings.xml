@@ -21,8 +21,13 @@
     <string name="tvDriverPodiums">Podiums</string>
 
     <!-- race location fragment - whole page will be created in outcome 2 as it will be a api map -->
-    <string name="tvRaceLocationMap">Click this to create a trip to the next race</string>
+    <string name="tvRaceLocationMap">Click this to see your current location</string>
+    <string name="tvRaceLocationOnMap">Click this to see the race current location</string>
     <string name="btnGetGPSLocation">GPS</string>
+    <string name="btnGetRaceLocation">Race</string>
+    <string name="btnCreateTrip">Create a trip between you and the next race</string>
+
+
 
     <!-- recycler view fragment -->
 
@@ -40,6 +45,8 @@
     <string name="driver_info_error">Error getting driver information from API</string>
 
     <string name="next_race_location">Error getting the next race location  from API</string>
+
+    <string name="Race_Next_Location_Error"> ERROR GETTING NEXT RACE</string>
 
 
 

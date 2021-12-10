@@ -104,9 +104,8 @@ public class DataFragment extends Fragment implements View.OnClickListener {
 
         // update the year from the user input (through arg im lazy)
         TextView tvYearValue = view.findViewById(R.id.tvYearValue);
-        String label = getContext().getString(R.string.tvYearDisplay);
+        String label = String.valueOf(mDataYear);
         tvYearValue.setText(label);
-
 
         // create the adapter for the RecyclerView
         adapter = new DriverInformationRecyclerViewAdapter(getContext(), driverInfo);
@@ -117,7 +116,6 @@ public class DataFragment extends Fragment implements View.OnClickListener {
         // setup the RecyclerView with the adapter
         rvDriverInformation.setLayoutManager(new LinearLayoutManager(getContext()));
         rvDriverInformation.setAdapter(adapter);
-        Log.d(TAG, "the view is created");
 
         //List<DriverInfo> driverInfo = DriverInfoRepo.getRepository(getContext()).getDriverInformation(1000);
         RecyclerView recyclerView = view.findViewById(R.id.rv_DriverInformation);
@@ -143,6 +141,10 @@ public class DataFragment extends Fragment implements View.OnClickListener {
             }
 
         });
+
+        // button listen
+        Button btnHomePage = view.findViewById(R.id.btnHomePage);
+        btnHomePage.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -151,9 +153,7 @@ public class DataFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-
     // make the HTTP get request
-
 
     private void downloadDriverData() {
         // build URI
@@ -163,7 +163,6 @@ public class DataFragment extends Fragment implements View.OnClickListener {
         uriBuilder.appendPath(String.valueOf(mDataYear));
         uriBuilder.appendPath("driverStandings.json");
         // append again if u wanted to add constructors with a new arg but im restricting the scope
-        Log.d(TAG, "the downloadDriverData method has been called");
         // final URL
         uri = uriBuilder.build();
 
@@ -181,10 +180,9 @@ public class DataFragment extends Fragment implements View.OnClickListener {
                         // parse the response
                         DriverDataParser parser = new DriverDataParser();
 
-                        Log.d(TAG, "on response has been ran");
                         try {
-                            Log.d(TAG, " the try has been ran");
-                            List<DriverInfo> driverInfo = parser.convertDriverInfoJson(response);
+
+                            List<DriverInfo> driverInfo = parser.convertDriverInfoJson(response, String.valueOf(mDataYear));
                             // store the Driver information to the database on a background thread
                             driverInfoRepo.storeInDatabase(driverInfo);
                             int i = 0;
@@ -206,7 +204,6 @@ public class DataFragment extends Fragment implements View.OnClickListener {
             }
         });
         // now make the request
-        Log.d(TAG, "the request is being queued with volley");
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
     }

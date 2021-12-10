@@ -147,13 +147,10 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
     private void checkIfLocationPermissionGranted() {
         if (mFineLocationGranted != null && mFineLocationGranted) {
             // Precise location access granted.
-            Log.d(TAG, "ACCURATE location granted");
         } else if (mCoarseLocationGranted != null && mCoarseLocationGranted) {
             // Only approximate location access granted.
-            Log.d(TAG, "inaccurate location granted");
         } else {
             requestLocationPermissions();
-            Log.d(TAG, "re-requesting the permission");
         }
     }
 
@@ -186,20 +183,17 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
                                 // Logic to handle location object
-                                Log.d(TAG, "Google play location service used" + location.getLatitude() + "," + location.getLongitude());
                                 switchToRaceMap(String.valueOf(location.getLatitude()),String.valueOf(location.getLongitude()));
                                 //switchToRaceMap(location.getLatitude(), location.getLongitude());
                             }
                             else{
 
-                                Log.d(TAG,"Play location didnt return a location");
                             }
                         }
                     });
         }
         else{
             // do it using location manager
-            Log.d(TAG, "No location services on the device");
             LocationManager locationManager = (LocationManager)getActivity().getApplicationContext().getSystemService(getContext().LOCATION_SERVICE);
             // check if the GPS Provider is available
             boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -212,10 +206,8 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
                                 public void accept(Location location) {
                                     if (location != null) {
                                         // Logic to handle location object
-                                        Log.d(TAG, "LocationManager Location " + location.getLatitude() + ", " + location.getLongitude());
                                         switchToRaceMap(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
                                     } else {
-                                        Log.d(TAG, "LocationManager did not return a GPS location ");
                                     }
                                 }
                             });

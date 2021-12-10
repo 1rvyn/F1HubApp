@@ -39,6 +39,8 @@ public class DriverInfo {
         super();
     }
 
+
+
     public String getDriverName(){
         return driverName;
     }
@@ -71,6 +73,7 @@ public class DriverInfo {
     public void setDriverWins(String driverWins){
         this.driverWins = driverWins;
     }
+
 
     public String getDataYear() { return dataYear;}
 

@@ -30,9 +30,6 @@ public interface DriverInfoDAO {
     @Query("SELECT * FROM DriverInfo WHERE dataYear = :dataYear")
     public LiveData<List<DriverInfo>> findByYear(int dataYear);
 
-    //@Query("DELETE FROM DriverInfo WHERE dataYear = :dataYear")
-    //public void deleteForYear(String dataYear);
-
 
 
 }

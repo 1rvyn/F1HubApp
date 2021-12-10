@@ -1,7 +1,6 @@
 package com.example.f1hub.data;
 
 
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,7 +8,6 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +15,6 @@ import java.util.List;
  * objects(di/driverInfo) usable by the app.
  */
 public class DriverDataParser {
-    private String TAG2 = "YEEEEEE";
 
     /**
      * @param jsonString The JSON String returned by the Ergast API
@@ -26,7 +23,7 @@ public class DriverDataParser {
      * @throws ParseException if any error occurs with processing the jsonString
      */
 
-    public List<DriverInfo> convertDriverInfoJson(String jsonString) throws JSONException, ParseException{
+    public List<DriverInfo> convertDriverInfoJson(String jsonString, String dataYear) throws JSONException, ParseException{
 
 
         List<DriverInfo> driverInfo = new ArrayList<DriverInfo>();
@@ -49,12 +46,12 @@ public class DriverDataParser {
                     JSONObject driverObj = dStandingsObj.getJSONObject("Driver");
                     String driverName = driverObj.getString("driverId");
 
-                    Log.d(TAG2, "drivers name are as follows ;" + driverName);
                     DriverInfo di = new DriverInfo();
                     di.setDriverName(driverName);
                     di.setDriverPoints(points);
                     di.setDriverWins(wins);
                     di.setDriverPos(position);
+                    di.setDataYear(dataYear);
                     driverInfo.add(di);
                 }
             }

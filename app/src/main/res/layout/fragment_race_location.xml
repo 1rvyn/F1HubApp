@@ -8,37 +8,58 @@
     android:id="@+id/frameLayout">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:id="@+id/tvRaceLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/tvRaceLocationMap"
+        app:layout_constraintBottom_toBottomOf="@+id/btnGetGPSLocation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnGetGPSLocation"
+        app:layout_constraintVertical_bias="0.275"
         tools:layout_conversion_absoluteHeight="731dp"
         tools:layout_conversion_absoluteWidth="411dp" />
-
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/googleMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGetGPSLocation"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/btnGetGPSLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/btnGetGPSLocation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvRaceLocation"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnGetRaceLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/btnGetRaceLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvRaceLocation"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetGPSLocation" />
+
+    <Button
+        android:id="@+id/btnCreateTrip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/btnCreateTrip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGetRaceLocation" />
+
+    <TextView
+        android:id="@+id/tvRaceLocationOnMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvRaceLocationOnMap"
+        app:layout_constraintBottom_toBottomOf="@+id/btnGetRaceLocation"
+        app:layout_constraintEnd_toStartOf="@+id/btnGetRaceLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnGetRaceLocation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

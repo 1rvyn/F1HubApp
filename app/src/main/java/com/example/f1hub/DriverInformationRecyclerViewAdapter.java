@@ -39,7 +39,6 @@ public class DriverInformationRecyclerViewAdapter extends RecyclerView.Adapter<D
     public DriverInformationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.data_display_list_item, parent, false);
         DriverInformationViewHolder viewHolder = new DriverInformationViewHolder(itemView,this);
-        Log.d("DRIVER_INFO_RECYCLER","CREATING VIEW HOLDER");
         return viewHolder;
     }
 
@@ -68,7 +67,6 @@ public class DriverInformationRecyclerViewAdapter extends RecyclerView.Adapter<D
         tvDriverPodiums.setText(driverInfo.getDriverWins());
 
 
-        Log.d("DRIVER_INFO_RECYCLER", "Binding view holder");
     }
 
     @Override
@@ -105,9 +103,7 @@ public class DriverInformationRecyclerViewAdapter extends RecyclerView.Adapter<D
             DriverInfo driverInfo = this.adapter.driverInfo.get(position);
 
             // do this
-
-            Log.d(TAG, driverInfo.getDriverName());
-
+            // future changes might have each driver in the RV open to their wiki's
 
         }
     }
