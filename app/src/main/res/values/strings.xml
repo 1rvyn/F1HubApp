@@ -21,7 +21,7 @@
     <string name="tvDriverPodiums">Podiums</string>
 
     <!-- race location fragment - whole page will be created in outcome 2 as it will be a api map -->
-    <string name="tvRaceLocationMap">This is how far you are from the race</string>
+    <string name="tvRaceLocationMap">Click this to create a trip to the next race</string>
     <string name="btnGetGPSLocation">GPS</string>
 
     <!-- recycler view fragment -->
@@ -36,6 +36,12 @@
     <integer name="etEnterYear">2020</integer>
 
     <string name="data_frag_download_error">Error downloading the driver data</string>
+
+    <string name="driver_info_error">Error getting driver information from API</string>
+
+    <string name="next_race_location">Error getting the next race location  from API</string>
+
+
 
 
 

@@ -1,5 +1,6 @@
 package com.example.f1hub;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.f1hub.data.DriverDataParser;
+import com.example.f1hub.data.DriverInfo;
+import com.example.f1hub.data.DriverInfoRepo;
+
+import org.json.JSONException;
+
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +39,9 @@ public class RaceLocationFragment extends Fragment implements View.OnClickListen
     private static final String ARG_LOCATION1 = "dataLat";
     private static final String ARG_LOCATION2 = "dataLong";
     private String TAG = "checking the args location";
+
+    String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+
 
     // member vars
     private String mDataLat;
@@ -54,7 +75,31 @@ public class RaceLocationFragment extends Fragment implements View.OnClickListen
             mDataLat = getArguments().getString(ARG_LOCATION1);
             mDataLong = getArguments().getString(ARG_LOCATION2);
         }
+        downloadNextRaceLocation();
     }
+
+    private void downloadNextRaceLocation() {
+        //http://ergast.com/api/f1/2021.json
+
+        //uri build
+
+        Uri uri = Uri.parse("https://ergast.com/api/f1/");
+        Uri.Builder uriBuilder = uri.buildUpon();
+        uriBuilder.appendPath(currentYear);
+        uriBuilder.appendPath(".json");
+        // final uri
+        uri = uriBuilder.build();
+        Log.d(TAG, String.valueOf(uri));
+
+        // volley req
+    }
+
+                        //try {
+
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +117,7 @@ public class RaceLocationFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnGetGPSLocation){
+            Log.d(TAG, "THE CURRENT LOC" + mDataLat+ "±±±" + mDataLong);
 
             // do what is needed to get the next race location and then create a trip through a map
             // even if its through an intent or through a mapview

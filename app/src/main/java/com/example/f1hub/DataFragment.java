@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.f1hub.data.DriverDataParser;
 import com.example.f1hub.data.DriverInfo;
 import com.example.f1hub.data.DriverInfoRepo;
 
@@ -32,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Driver;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +51,15 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private int mDataYear;
 
-    private static final String TAG = "Year_DATA_HERE";
+    private DriverInformationRecyclerViewAdapter adapter;
+
+    private DriverInfoRepo driverInfoRepo;
+
+
+    private List<DriverInfo> driverInfo;
+
+
+    private static final String TAG = "TryingToCodeInAcar";
 
     public DataFragment() {
         // Required empty public constructor
@@ -55,6 +68,7 @@ public class DataFragment extends Fragment implements View.OnClickListener {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @param dataYear THE YEAR THE DATA HAS TO BE SHOWN FOR
      * @return A new instance of fragment DataFragment.
      */
@@ -73,106 +87,62 @@ public class DataFragment extends Fragment implements View.OnClickListener {
         if (getArguments() != null) {
             mDataYear = getArguments().getInt(DriversInfoFragment.ARG_DATA_YEAR);
         }
+        driverInfoRepo = DriverInfoRepo.getRepository(getContext());
+        // get the data to display - a placeholder while waiting to download
+        driverInfo = new ArrayList<>();
     }
 
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_data, container, false);
-        // create the button when the view is created
-        Button btnHomePage = view.findViewById(R.id.btnHomePage);
-        btnHomePage.setOnClickListener(this);
+        return inflater.inflate(R.layout.fragment_data, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // update the year from the user input (through arg im lazy)
+        TextView tvYearValue = view.findViewById(R.id.tvYearValue);
+        String label = getContext().getString(R.string.tvYearDisplay);
+        tvYearValue.setText(label);
 
 
-        // recycler view creation in view
-        // this is just placeholder while we wait to download the data
-        List<DriverInfo> driverInfo = DriverInfoRepo.getRepository(getContext()).getDriverInformation(1000);
+        // create the adapter for the RecyclerView
+        adapter = new DriverInformationRecyclerViewAdapter(getContext(), driverInfo);
 
+        // get the RecyclerView
+        RecyclerView rvDriverInformation = view.findViewById(R.id.rv_DriverInformation);
 
+        // setup the RecyclerView with the adapter
+        rvDriverInformation.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvDriverInformation.setAdapter(adapter);
+        Log.d(TAG, "the view is created");
+
+        //List<DriverInfo> driverInfo = DriverInfoRepo.getRepository(getContext()).getDriverInformation(1000);
         RecyclerView recyclerView = view.findViewById(R.id.rv_DriverInformation);
         // get from repo
         RecyclerView.Adapter adapter = new DriverInformationRecyclerViewAdapter(getContext(), driverInfo);
         // set the adapter on the rv
         recyclerView.setAdapter(adapter);
 
-        // make the HTTP get request
 
-        // build URI
-        // create util & parser in seperate class
-        Uri uri = Uri.parse("https://ergast.com/api/f1/");
-        Uri.Builder uriBuilder = uri.buildUpon();
-        uriBuilder.appendPath(String.valueOf(mDataYear));
-        uriBuilder.appendPath("driverStandings.json");
-        // append again if u wanted to add constructors with a new arg but im restricting the scope
+        // get it from the DB
 
-        // final URL
-        uri = uriBuilder.build();
+        DriverInfoRepo.getDriverInfoFromDB(mDataYear).observe(getViewLifecycleOwner(), new Observer<List<DriverInfo>>() {
+            @Override
+            public void onChanged(List<DriverInfo> newDriverInfo) {
+                if (newDriverInfo.size() > 0) {
+                    driverInfo.clear();
+                    driverInfo.addAll(newDriverInfo);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    // download it
+                    downloadDriverData();
+                }
+            }
 
-        // volley req
-        StringRequest request = new StringRequest(Request.Method.GET,
-                uri.toString(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d(TAG, response);
-                        // time to actually process if we get given a response and not an error
-                        // will essentially be displaying the data in the DriverInfo list
-                        try {
-                            JSONObject rootObject = new JSONObject(response);
-                            JSONObject MRData = rootObject.getJSONObject("MRData");
-                            JSONObject standingsObj = MRData.getJSONObject("StandingsTable");
-                            JSONArray standingsArray = standingsObj.getJSONArray("StandingsLists");
-                            driverInfo.clear();
-                            for (int i = 0, j = standingsArray.length(); i < j; i++){
-                                JSONObject standingsArrayObj = standingsArray.getJSONObject(i);
-                                JSONArray driverStandings = standingsArrayObj.getJSONArray("DriverStandings");
-                                for (int ii = 0, jj = driverStandings.length(); ii < jj; ii++) {
-                                    JSONObject dStandingsObj = driverStandings.getJSONObject(ii);
-                                    String wins = dStandingsObj.getString("wins");
-                                    String points = dStandingsObj.getString("points");
-                                    String position = dStandingsObj.getString("position");
-                                    JSONObject driverObj = dStandingsObj.getJSONObject("Driver");
-                                    String driverName = driverObj.getString("driverId");
-                                    // test Log.d(TAG2, "drivers name are as follows ;" + driverName);
-                                    DriverInfo di = new DriverInfo();
-                                    di.setDriverName(driverName);
-                                    di.setDriverPoints(points);
-                                    di.setDriverWins(wins);
-                                    di.setDriverPos(position);
-                                    driverInfo.add(di);
-
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity().getApplicationContext(),
-                                getString(R.string.data_frag_download_error),Toast.LENGTH_LONG);
-                        Log.e(TAG, error.getLocalizedMessage());
-                    }
         });
-
-        // make the request on the build URI/URL
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        queue.add(request);
-
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        // add the year from the user input (through arg im lazy)
-        TextView tvYearValue = view.findViewById(R.id.tvYearValue);
-        tvYearValue.setText(String.valueOf(mDataYear));
-
-        // see if the year is getting passed through the fragments correctly
-        Log.d(TAG, String.valueOf(mDataYear));
-
-        return view;
     }
 
     public void onClick(View v) {
@@ -180,4 +150,65 @@ public class DataFragment extends Fragment implements View.OnClickListener {
             Navigation.findNavController(v).navigate(R.id.action_dataFragment_to_locationSelectionFragment);
         }
     }
+
+
+    // make the HTTP get request
+
+
+    private void downloadDriverData() {
+        // build URI
+        // create util & parser in seperate class
+        Uri uri = Uri.parse("https://ergast.com/api/f1/");
+        Uri.Builder uriBuilder = uri.buildUpon();
+        uriBuilder.appendPath(String.valueOf(mDataYear));
+        uriBuilder.appendPath("driverStandings.json");
+        // append again if u wanted to add constructors with a new arg but im restricting the scope
+        Log.d(TAG, "the downloadDriverData method has been called");
+        // final URL
+        uri = uriBuilder.build();
+
+        // volley req
+        // use Volley to make the request
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                uri.toString(),
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        // clear the data in driverInfo if there is any
+                        driverInfo.clear();
+                        // parse the response
+                        DriverDataParser parser = new DriverDataParser();
+
+                        Log.d(TAG, "on response has been ran");
+                        try {
+                            Log.d(TAG, " the try has been ran");
+                            List<DriverInfo> driverInfo = parser.convertDriverInfoJson(response);
+                            // store the Driver information to the database on a background thread
+                            driverInfoRepo.storeInDatabase(driverInfo);
+                            int i = 0;
+                        } catch (JSONException | ParseException e) {
+                            Log.d(TAG, e.getLocalizedMessage());
+                            // display a mesasge to the user
+                            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.driver_info_error), Toast.LENGTH_LONG);
+                        }
+
+                        // inform the adapter that the data has changed, to update the RecyclerView
+                        // no need to do this as LiveData will alert us
+                        // adapter.notifyDataSetChanged();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getApplicationContext(), getString(R.string.driver_info_error), Toast.LENGTH_LONG);
+                //Log.e(TAG, error.getLocalizedMessage());
+            }
+        });
+        // now make the request
+        Log.d(TAG, "the request is being queued with volley");
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        queue.add(request);
+    }
+
 }

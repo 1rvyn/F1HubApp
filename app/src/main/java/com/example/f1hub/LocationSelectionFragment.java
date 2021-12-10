@@ -126,8 +126,6 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
         Button btnDriversInfo = view.findViewById(R.id.btnDriversInfo);
         btnDriversInfo.setOnClickListener(this);
 
-        Button btnConstructorsInfo = view.findViewById(R.id.btnConstructorsInfo);
-        btnConstructorsInfo.setOnClickListener(this);
 
         Button btnShowNextCircut = view.findViewById(R.id.btnShowNextCircut);
         btnShowNextCircut.setOnClickListener(this);
@@ -139,8 +137,6 @@ public class LocationSelectionFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         if (v.getId() == R.id.btnDriversInfo) {
             Navigation.findNavController(v).navigate(R.id.action_locationSelectionFragment_to_driversInfoFragment);
-        } else if (v.getId() == R.id.btnConstructorsInfo) {
-            Navigation.findNavController(v).navigate(R.id.action_locationSelectionFragment_to_constructorsLayoutFragment2);
         } else if (v.getId() == R.id.btnShowNextCircut) {
             checkIfLocationPermissionGranted();
             getTheCurrentLocation();

@@ -16,34 +16,24 @@ tools:context=".LocationSelectionFragment">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
-<Button
-    android:id="@+id/btnDriversInfo"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:text="@string/btnGetDriversInfo"
-    app:layout_constraintEnd_toEndOf="@+id/tvPageHeader"
-    app:layout_constraintStart_toStartOf="@+id/tvPageHeader"
-    app:layout_constraintTop_toBottomOf="@+id/tvPageHeader" />
-
-<Button
-    android:id="@+id/btnConstructorsInfo"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:text="@string/btnGetConstructorsInfo"
-    app:layout_constraintEnd_toEndOf="@+id/btnDriversInfo"
-    app:layout_constraintStart_toStartOf="@+id/btnDriversInfo"
-    app:layout_constraintTop_toBottomOf="@+id/btnDriversInfo" />
+    <Button
+        android:id="@+id/btnDriversInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/btnGetDriversInfo"
+        app:layout_constraintEnd_toEndOf="@+id/tvPageHeader"
+        app:layout_constraintStart_toStartOf="@+id/tvPageHeader"
+        app:layout_constraintTop_toBottomOf="@+id/tvPageHeader" />
 
     <Button
         android:id="@+id/btnShowNextCircut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/btnShowNextCircut"
-        app:layout_constraintEnd_toEndOf="@+id/btnConstructorsInfo"
-        app:layout_constraintStart_toStartOf="@+id/btnConstructorsInfo"
-        app:layout_constraintTop_toBottomOf="@+id/btnConstructorsInfo" />
+        app:layout_constraintEnd_toEndOf="@+id/btnDriversInfo"
+        app:layout_constraintStart_toStartOf="@+id/btnDriversInfo"
+        app:layout_constraintTop_toBottomOf="@+id/btnDriversInfo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

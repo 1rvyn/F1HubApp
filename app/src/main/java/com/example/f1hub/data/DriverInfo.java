@@ -1,5 +1,10 @@
 package com.example.f1hub.data;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "DriverInfo")
 public class DriverInfo {
     // http://ergast.com/api/f1/2020/driverStandings.json
     private String driverName;
@@ -10,7 +15,21 @@ public class DriverInfo {
 
     private String driverWins;
 
+    private String dataYear;
+
     //private int season;
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private int uid;
 
     /**
      * default constructor
@@ -52,6 +71,10 @@ public class DriverInfo {
     public void setDriverWins(String driverWins){
         this.driverWins = driverWins;
     }
+
+    public String getDataYear() { return dataYear;}
+
+    public void setDataYear (String dataYear) { this.dataYear = dataYear;}
 
     //public int getSeason(){ return season; }
 
